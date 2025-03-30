@@ -12,7 +12,7 @@ struct Plugin: CommandPlugin {
         process.executableURL = URL(fileURLWithPath: createAPI.path.string)
         process.arguments = [
             "generate",
-            "app_store_connect_api.json",
+            "enterprise_program_api.json",
             "--output", "Generated",
             "--config", "create-api.yml",
             "--clean"

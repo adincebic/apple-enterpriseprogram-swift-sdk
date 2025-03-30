@@ -4,7 +4,7 @@
 import Foundation
 import URLQueryEncoder
 
-extension APIEndpoint.V1.UserInvitations {
+extension APIEndpoint.UserInvitations {
 	public func id(_ id: String) -> WithID {
 		WithID(path: "\(path)/\(id)")
 	}
@@ -13,96 +13,28 @@ extension APIEndpoint.V1.UserInvitations {
 		/// Path: `/v1/userInvitations/{id}`
 		public let path: String
 
-		public func get(parameters: GetParameters? = nil) -> Request<AppStoreConnect_Swift_SDK.UserInvitationResponse> {
-			Request(path: path, method: "GET", query: parameters?.asQuery, id: "userInvitations_getInstance")
+		/// Read UserInvitation Information
+		public func get(fieldsUserInvitations: [FieldsUserInvitations]? = nil) -> Request<EnterpriseProgram_Swift_SDK.UserInvitationResponse> {
+			Request(path: path, method: "GET", query: makeGetQuery(fieldsUserInvitations), id: "userInvitations-get_instance")
 		}
 
-		public struct GetParameters {
-			public var fieldsUserInvitations: [FieldsUserInvitations]?
-			public var fieldsApps: [FieldsApps]?
-			public var include: [Include]?
-			public var limitVisibleApps: Int?
-
-			public enum FieldsUserInvitations: String, Codable, CaseIterable {
-				case email
-				case firstName
-				case lastName
-				case expirationDate
-				case roles
-				case allAppsVisible
-				case provisioningAllowed
-				case visibleApps
-			}
-
-			public enum FieldsApps: String, Codable, CaseIterable {
-				case name
-				case bundleID = "bundleId"
-				case sku
-				case primaryLocale
-				case isOrEverWasMadeForKids
-				case subscriptionStatusURL = "subscriptionStatusUrl"
-				case subscriptionStatusURLVersion = "subscriptionStatusUrlVersion"
-				case subscriptionStatusURLForSandbox = "subscriptionStatusUrlForSandbox"
-				case subscriptionStatusURLVersionForSandbox = "subscriptionStatusUrlVersionForSandbox"
-				case contentRightsDeclaration
-				case streamlinedPurchasingEnabled
-				case appEncryptionDeclarations
-				case ciProduct
-				case betaTesters
-				case betaGroups
-				case appStoreVersions
-				case preReleaseVersions
-				case betaAppLocalizations
-				case builds
-				case betaLicenseAgreement
-				case betaAppReviewDetail
-				case appInfos
-				case appClips
-				case appPricePoints
-				case endUserLicenseAgreement
-				case appPriceSchedule
-				case appAvailabilityV2
-				case inAppPurchases
-				case subscriptionGroups
-				case gameCenterEnabledVersions
-				case perfPowerMetrics
-				case appCustomProductPages
-				case inAppPurchasesV2
-				case promotedPurchases
-				case appEvents
-				case reviewSubmissions
-				case subscriptionGracePeriod
-				case customerReviews
-				case gameCenterDetail
-				case appStoreVersionExperimentsV2
-				case alternativeDistributionKey
-				case analyticsReportRequests
-				case marketplaceSearchDetail
-			}
-
-			public enum Include: String, Codable, CaseIterable {
-				case visibleApps
-			}
-
-			public init(fieldsUserInvitations: [FieldsUserInvitations]? = nil, fieldsApps: [FieldsApps]? = nil, include: [Include]? = nil, limitVisibleApps: Int? = nil) {
-				self.fieldsUserInvitations = fieldsUserInvitations
-				self.fieldsApps = fieldsApps
-				self.include = include
-				self.limitVisibleApps = limitVisibleApps
-			}
-
-			public var asQuery: [(String, String?)] {
-				let encoder = URLQueryEncoder(explode: false)
-				encoder.encode(fieldsUserInvitations, forKey: "fields[userInvitations]")
-				encoder.encode(fieldsApps, forKey: "fields[apps]")
-				encoder.encode(include, forKey: "include")
-				encoder.encode(limitVisibleApps, forKey: "limit[visibleApps]")
-				return encoder.items
-			}
+		private func makeGetQuery(_ fieldsUserInvitations: [FieldsUserInvitations]?) -> [(String, String?)] {
+			let encoder = URLQueryEncoder()
+			encoder.encode(fieldsUserInvitations, forKey: "fields[userInvitations]", explode: false)
+			return encoder.items
 		}
 
+		public enum FieldsUserInvitations: String, Codable, CaseIterable {
+			case email
+			case expirationDate
+			case firstName
+			case lastName
+			case roles
+		}
+
+		/// Cancel a User Invitation
 		public var delete: Request<Void> {
-			Request(path: path, method: "DELETE", id: "userInvitations_deleteInstance")
+			Request(path: path, method: "DELETE", id: "userInvitations-delete_instance")
 		}
 	}
 }

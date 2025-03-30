@@ -3,7 +3,7 @@
 
 import Foundation
 
-public struct UserUpdateRequest: Codable {
+public struct PassTypeIDUpdateRequest: Codable {
 	public var data: Data
 
 	public struct Data: Codable, Identifiable {
@@ -12,24 +12,24 @@ public struct UserUpdateRequest: Codable {
 		public var attributes: Attributes?
 
 		public enum `Type`: String, Codable, CaseIterable {
-			case users
+			case passTypeIDs = "passTypeIds"
 		}
 
 		public struct Attributes: Codable {
-			public var roles: [UserRole]?
+			public var name: String?
 
-			public init(roles: [UserRole]? = nil) {
-				self.roles = roles
+			public init(name: String? = nil) {
+				self.name = name
 			}
 
 			public init(from decoder: Decoder) throws {
 				let values = try decoder.container(keyedBy: StringCodingKey.self)
-				self.roles = try values.decodeIfPresent([UserRole].self, forKey: "roles")
+				self.name = try values.decodeIfPresent(String.self, forKey: "name")
 			}
 
 			public func encode(to encoder: Encoder) throws {
 				var values = encoder.container(keyedBy: StringCodingKey.self)
-				try values.encodeIfPresent(roles, forKey: "roles")
+				try values.encodeIfPresent(name, forKey: "name")
 			}
 		}
 

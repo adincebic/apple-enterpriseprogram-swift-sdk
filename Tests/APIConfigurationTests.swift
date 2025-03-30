@@ -6,7 +6,7 @@
 //
 
 import XCTest
-@testable import AppStoreConnect_Swift_SDK
+@testable import EnterpriseProgram_Swift_SDK
 
 final class APIConfigurationTests: XCTestCase {
 

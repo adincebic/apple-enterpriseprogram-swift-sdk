@@ -1,6 +1,6 @@
 //
 //  Bundle+Tests.swift
-//  AppStoreConnect-Swift-SDK
+//  EnterpriseProgram-Swift-SDK
 //
 //  Created by Oliver Jones on 17/4/20.
 //

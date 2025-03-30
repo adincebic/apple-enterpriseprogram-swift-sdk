@@ -1,6 +1,6 @@
 //
 //  JWTDecoder.swift
-//  AppStoreConnect-Swift-SDK
+//  EnterpriseProgram-Swift-SDK
 //
 //  Created by Antoine van der Lee on 08/11/2018.
 //

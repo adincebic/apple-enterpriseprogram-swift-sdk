@@ -4,7 +4,7 @@
 import Foundation
 import URLQueryEncoder
 
-extension APIEndpoint.V1.BundleIDs.WithID {
+extension APIEndpoint.BundleIDs.WithID {
 	public var bundleIDCapabilities: BundleIDCapabilities {
 		BundleIDCapabilities(path: path + "/bundleIdCapabilities")
 	}
@@ -13,8 +13,9 @@ extension APIEndpoint.V1.BundleIDs.WithID {
 		/// Path: `/v1/bundleIds/{id}/bundleIdCapabilities`
 		public let path: String
 
-		public func get(fieldsBundleIDCapabilities: [FieldsBundleIDCapabilities]? = nil, limit: Int? = nil) -> Request<AppStoreConnect_Swift_SDK.BundleIDCapabilitiesWithoutIncludesResponse> {
-			Request(path: path, method: "GET", query: makeGetQuery(fieldsBundleIDCapabilities, limit), id: "bundleIds_bundleIdCapabilities_getToManyRelated")
+		/// List All Bundle Id Capabilities for a BundleId
+		public func get(fieldsBundleIDCapabilities: [FieldsBundleIDCapabilities]? = nil, limit: Int? = nil) -> Request<EnterpriseProgram_Swift_SDK.BundleIDCapabilitiesWithoutIncludesResponse> {
+			Request(path: path, method: "GET", query: makeGetQuery(fieldsBundleIDCapabilities, limit), id: "bundleIds-bundleIdCapabilities-get_to_many_related")
 		}
 
 		private func makeGetQuery(_ fieldsBundleIDCapabilities: [FieldsBundleIDCapabilities]?, _ limit: Int?) -> [(String, String?)] {
@@ -25,6 +26,7 @@ extension APIEndpoint.V1.BundleIDs.WithID {
 		}
 
 		public enum FieldsBundleIDCapabilities: String, Codable, CaseIterable {
+			case bundleID = "bundleId"
 			case capabilityType
 			case settings
 		}

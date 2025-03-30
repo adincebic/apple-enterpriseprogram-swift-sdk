@@ -4,7 +4,7 @@
 import Foundation
 import URLQueryEncoder
 
-extension APIEndpoint.V1.Profiles.WithID {
+extension APIEndpoint.Profiles.WithID {
 	public var certificates: Certificates {
 		Certificates(path: path + "/certificates")
 	}
@@ -13,8 +13,9 @@ extension APIEndpoint.V1.Profiles.WithID {
 		/// Path: `/v1/profiles/{id}/certificates`
 		public let path: String
 
-		public func get(fieldsCertificates: [FieldsCertificates]? = nil, limit: Int? = nil) -> Request<AppStoreConnect_Swift_SDK.CertificatesWithoutIncludesResponse> {
-			Request(path: path, method: "GET", query: makeGetQuery(fieldsCertificates, limit), id: "profiles_certificates_getToManyRelated")
+		/// List All Certificates in a Profile
+		public func get(fieldsCertificates: [FieldsCertificates]? = nil, limit: Int? = nil) -> Request<EnterpriseProgram_Swift_SDK.CertificatesWithoutIncludesResponse> {
+			Request(path: path, method: "GET", query: makeGetQuery(fieldsCertificates, limit), id: "profiles-certificates-get_to_many_related")
 		}
 
 		private func makeGetQuery(_ fieldsCertificates: [FieldsCertificates]?, _ limit: Int?) -> [(String, String?)] {
@@ -25,14 +26,15 @@ extension APIEndpoint.V1.Profiles.WithID {
 		}
 
 		public enum FieldsCertificates: String, Codable, CaseIterable {
-			case name
-			case certificateType
-			case displayName
-			case serialNumber
-			case platform
-			case expirationDate
 			case certificateContent
-			case activated
+			case certificateType
+			case csrContent
+			case displayName
+			case expirationDate
+			case name
+			case passTypeID = "passTypeId"
+			case platform
+			case serialNumber
 		}
 	}
 }

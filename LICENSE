@@ -1,4 +1,4 @@
-# App Store Connect Swift SDK
+# Enterprise Program Swift SDK
 
 MIT License
 
@@ -23,7 +23,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 ---
-App Store Connect Swift SDK uses source code from these open source projects:
+Enterprise Program Swift SDK uses source code from these open source projects:
 
 ## [CupertinoJWT](https://github.com/ethanhuang13/CupertinoJWT)
 

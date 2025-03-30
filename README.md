@@ -1,15 +1,8 @@
-# App Store Connect Swift SDK
+# Apple Enterprise Program Swift SDK
 
-The Swift SDK to work with the App Store Connect API from Apple.
+The Swift SDK to work with the Enterprise Program API from Apple.
 
-[![Platform Compatibility](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2FAvdLee%2Fappstoreconnect-swift-sdk%2Fbadge%3Ftype%3Dplatforms)](https://swiftpackageindex.com/AvdLee/appstoreconnect-swift-sdk) ![Dependency frameworks](https://img.shields.io/badge/Supports-_Swift_Package_Manager-F16D39.svg?style=flat) [![Twitter](https://img.shields.io/badge/twitter-@Twannl-blue.svg?style=flat)](https://twitter.com/twannl)
-
-## Kickstart information on the API
-
-- [Automate your workflow with the App Store Connect API](https://developer.apple.com/app-store-connect/api/)
-- [Official Apple Documentation](https://developer.apple.com/documentation/appstoreconnectapi)
-- WWDC 2018 Talk [Automating App Store Connect](https://developer.apple.com/videos/play/wwdc2018/303/)
-- [App Store Connect API adoption with use case examples](https://www.avanderlee.com/general/app-store-connect-api-adoption/)
+[![Platform Compatibility](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2FAvdLee%2FEnterpriseProgram-swift-sdk%2Fbadge%3Ftype%3Dplatforms)](https://swiftpackageindex.com/AvdLee) ![Dependency frameworks](https://img.shields.io/badge/Supports-_Swift_Package_Manager-F16D39.svg?style=flat) [![Twitter](https://img.shields.io/badge/twitter-@Twannl-blue.svg?style=flat)](https://twitter.com/twannl)
 
 ## Included in this SDK
 
@@ -23,7 +16,7 @@ The Swift SDK to work with the App Store Connect API from Apple.
 
 ## Requesting API Access
 
-To request access, go to the new API Keys section in Users and Access in App Store Connect. Please note that you must be the Team Agent (Legal role) of a development team enrolled as an organization. Access for developers enrolled as an individual is coming soon.
+To request access, go to the new API Keys section in Users and Access in Apple Developer website. Please note that you must be the Team Agent (Legal role) of a development team enrolled as an organization. Access for developers enrolled as an individual is coming soon.
 
 ## How to use the SDK?
 
@@ -32,12 +25,12 @@ _Not all endpoints are available yet, we're working hard to implement them all (
 #### 1. Import the framework:
 
 ```swift
-import AppStoreConnect_Swift_SDK
+import EnterpriseProgram_Swift_SDK
 ```
 
 #### 2. Create your API Configuration
 
-Go to [https://appstoreconnect.apple.com/access/integrations/api](https://appstoreconnect.apple.com/access/integrations/api) and create your own key. This is also the page to find your private key ID and the issuer ID.
+Go to [https://EnterpriseProgram.apple.com/access/integrations/api](https://EnterpriseProgram.apple.com/access/integrations/api) and create your own key. This is also the page to find your private key ID and the issuer ID.
 
 After downloading your private key, you can open the .p8 file containing the private key in a text editor which will show like the following content:
 
@@ -141,7 +134,7 @@ do {
 ```
 
 The error title and detail should help you solve the failure.
-For more info regarding errors, see: [Parsing the Error Response Code](https://developer.apple.com/documentation/appstoreconnectapi/interpreting_and_handling_errors/parsing_the_error_response_code) as documented by Apple.
+For more info regarding errors, see: [Parsing the Error Response Code](https://developer.apple.com/documentation/EnterpriseProgramapi/interpreting_and_handling_errors/parsing_the_error_response_code) as documented by Apple.
 
 ## Installation
 
@@ -153,7 +146,7 @@ Once you have your Swift package set up, adding the SDK as a dependency is as ea
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/AvdLee/appstoreconnect-swift-sdk.git", .upToNextMajor(from: "2.0.0"))
+    .package(url: "https://github.com/adincebic/apple-enterpriseprogram-swift-sdk.git", .upToNextMajor(from: "2.0.0"))
 ]
 ```
 
@@ -178,40 +171,20 @@ Run the following:
 $ make update
 ```
 
-This will attempt to download the App Store Connect [OpenAPI specification](https://developer.apple.com/sample-code/app-store-connect/app-store-connect-openapi-specification.zip) from Apple, and re-run the [CreateAPI](https://github.com/CreateAPI/CreateAPI) generator to produce the updated source code.
+This will attempt to download the Enterprise Program [OpenAPI specification](https://developer.apple.com/sample-code/enterprise/enterprise-program-openapi-oas.zip) from Apple, and re-run the [CreateAPI](https://github.com/CreateAPI/CreateAPI) generator to produce the updated source code.
 
 Alternatively, you can run `make download` and `make generate` individually.
 
 ## Communication
 
-- If you **found a bug**, open an [issue](https://github.com/AvdLee/appstoreconnect-swift-sdk/issues).
-- If you **have a feature request**, open an [issue](https://github.com/AvdLee/appstoreconnect-swift-sdk/issues).
-- If you **want to contribute**, submit a [pull request](https://github.com/AvdLee/appstoreconnect-swift-sdk/pulls).
-
-## Applications that use the SDK
-
-- [Helm for App Store Connect](https://apps.apple.com/app/apple-store/id6479357934?pt=670995&ct=website&mt=8) developed by [Pol Piella](https://x.com/polpielladev) & [Hidde van der Ploeg](https://x.com/hiddevdploeg).
-  Helm is an all-in-one macOS app that replaces App Store Connect, supercharging your app updates, localization, and ASO with AI-powered tools. It also lets you easily manage TestFlight releases and turns reviews into better support and deeper customer insights. [Learn more about Helm](https://helm-app.com).
-
-- [Starly: reviews, reply to apps](https://apps.apple.com/app/id1644699015) developed by [Viktor Grushevskiy](https://twitter.com/Viktorianec).
-  The Starly app is a project that will allow developers to manage reviews on the App Store with ease. You can reply to them, translate them to the language you want, filter them, and create templates. iOS and macOS versions available.
-
-- [🌟 Superstar: App Store Review manager](https://apps.apple.com/us/app/superstar-respond-to-reviews/id1635833987) developed by [Jordi Bruin](https://twitter.com/jordibruin).
-  Superstar uses the App Store Connect API to help you respond to your App Store customer reviews in seconds. Use custom templates to quickly reply with professional responses. Translate reviews and your responses directly with free DeepL integration. Available for free for a limited time.
-
-- [AppsMan: Manage app metada globally](https://apps.apple.com/app/id6443788342) developed by [Karmjit Singh](https://twitter.com/CodeWithKarma).
-  The AppsMan app is a project that will allow developers to manage apps localisable data on the App Store with ease. You can easily update the data for one language and copy over to other and save. You can see the previous versions details as well. Only macOS versions available.
-
-- [Localiji: Localizations for App Store](https://apps.apple.com/us/app/localiji/id6467663963) developed by Nicolas Kick.
-  Localiji manages a local copy of your app localizations from App Store Connect and allows you to effortlessly sync the changes. Edit individual attributes, like your app’s description, release notes or screenshots. Export an entire language, import the translations again and upload them to App Store Connect with only a few clicks.
-
-- [Five Stars: Reviews & Ratings](https://apps.apple.com/app/id1634650919) developed by [Mathias Emil Mortensen](https://github.com/mathiasemil).
-  Five Stars helps app developers read and reply to App Store reviews from their users. Translate reviews, reply with customizable templates and AI-powered quick replies, filter by region, and view global app ratings from any app. Five Stars is available for iPhone and iPad, with a Mac version coming in Spring 2024.
+- If you **found a bug**, open an [issue](https://github.com/adincebic/apple-enterpriseprogram-swift-sdk/issues).
+- If you **have a feature request**, open an [issue](https://github.com/adincebic/apple-enterpriseprogram-swift-sdk/issues).
+- If you **want to contribute**, submit a [pull request](https://github.com/adincebic/apple-enterpriseprogram-swift-sdk/pulls).
 
 ## License
 
-**App Store Connect Swift SDK** is available under the MIT license, and uses source code from open source projects. See the [LICENSE](https://github.com/AvdLee/appstoreconnect-swift-sdk/blob/master/LICENSE) file for more info.
+**Enterprise program Swift SDK** is available under the MIT license, and uses source code from open source projects. See the [LICENSE](https://github.com/adincebic/apple-enterpriseprogram-swift-sdk/blob/master/LICENSE) file for more info.
 
 ## Author
 
-This project is originally created by [Antoine van der Lee](https://www.twitter.com/twannl) but has a lot of [great contributors](https://github.com/AvdLee/appstoreconnect-swift-sdk/graphs/contributors). We're open for contributions of any kind to make this project even better.
+This project is originally created by [Antoine van der Lee](https://www.twitter.com/twannl) and forked to support Apple's enterpise program API.

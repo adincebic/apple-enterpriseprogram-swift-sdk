@@ -38,9 +38,9 @@ public struct CertificateCreateRequest: Codable {
 		}
 
 		public struct Relationships: Codable {
-			public var merchantID: MerchantID?
+			public var passTypeID: PassTypeID?
 
-			public struct MerchantID: Codable {
+			public struct PassTypeID: Codable {
 				public var data: Data?
 
 				public struct Data: Codable, Identifiable {
@@ -48,7 +48,7 @@ public struct CertificateCreateRequest: Codable {
 					public var id: String
 
 					public enum `Type`: String, Codable, CaseIterable {
-						case merchantIDs = "merchantIds"
+						case passTypeIDs = "passTypeIds"
 					}
 
 					public init(type: `Type`, id: String) {
@@ -84,18 +84,18 @@ public struct CertificateCreateRequest: Codable {
 				}
 			}
 
-			public init(merchantID: MerchantID? = nil) {
-				self.merchantID = merchantID
+			public init(passTypeID: PassTypeID? = nil) {
+				self.passTypeID = passTypeID
 			}
 
 			public init(from decoder: Decoder) throws {
 				let values = try decoder.container(keyedBy: StringCodingKey.self)
-				self.merchantID = try values.decodeIfPresent(MerchantID.self, forKey: "merchantId")
+				self.passTypeID = try values.decodeIfPresent(PassTypeID.self, forKey: "passTypeId")
 			}
 
 			public func encode(to encoder: Encoder) throws {
 				var values = encoder.container(keyedBy: StringCodingKey.self)
-				try values.encodeIfPresent(merchantID, forKey: "merchantId")
+				try values.encodeIfPresent(passTypeID, forKey: "passTypeId")
 			}
 		}
 

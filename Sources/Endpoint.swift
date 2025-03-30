@@ -1,6 +1,6 @@
 //
 //  Endpoints.swift
-//  AppStoreConnect-Swift-SDK
+//  EnterpriseProgram-Swift-SDK
 //
 //  Created by Antoine van der Lee on 05/11/2018.
 //

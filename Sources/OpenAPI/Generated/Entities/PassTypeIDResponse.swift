@@ -3,25 +3,29 @@
 
 import Foundation
 
-public struct UserResponse: Codable {
-	/// User
-	public var data: User
+public struct PassTypeIDResponse: Codable {
+	/// PassTypeId
+	public var data: PassTypeID
+	public var included: [Certificate]?
 	public var links: DocumentLinks
 
-	public init(data: User, links: DocumentLinks) {
+	public init(data: PassTypeID, included: [Certificate]? = nil, links: DocumentLinks) {
 		self.data = data
+		self.included = included
 		self.links = links
 	}
 
 	public init(from decoder: Decoder) throws {
 		let values = try decoder.container(keyedBy: StringCodingKey.self)
-		self.data = try values.decode(User.self, forKey: "data")
+		self.data = try values.decode(PassTypeID.self, forKey: "data")
+		self.included = try values.decodeIfPresent([Certificate].self, forKey: "included")
 		self.links = try values.decode(DocumentLinks.self, forKey: "links")
 	}
 
 	public func encode(to encoder: Encoder) throws {
 		var values = encoder.container(keyedBy: StringCodingKey.self)
 		try values.encode(data, forKey: "data")
+		try values.encodeIfPresent(included, forKey: "included")
 		try values.encode(links, forKey: "links")
 	}
 }

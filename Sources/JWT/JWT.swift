@@ -1,6 +1,6 @@
 //
 //  JWT.swift
-//  AppStoreConnect-Swift-SDK
+//  EnterpriseProgram-Swift-SDK
 //
 //  Created by Antoine van der Lee on 08/11/2018.
 //
@@ -8,7 +8,7 @@
 import Foundation
 import Crypto
 
-/// The JWT Header contains information specific to the App Store Connect API Keys, such as algorithm and keys.
+/// The JWT Header contains information specific to the Enterprise Program API Keys, such as algorithm and keys.
 private struct Header: Codable {
 
     enum CodingKeys: String, CodingKey {
@@ -17,17 +17,17 @@ private struct Header: Codable {
         case tokenType = "typ"
     }
 
-    /// All JWTs for App Store Connect API must be signed with ES256 encryption
+    /// All JWTs for Enterprise Program API must be signed with ES256 encryption
     let algorithm: String = "ES256"
 
-    /// Your private key ID from App Store Connect (Ex: 2X9R4HXF34)
+    /// Your private key ID from Enterprise Program (Ex: 2X9R4HXF34)
     let keyIdentifier: String
 
-    /// The required type for signing requests to the App Store Connect API
+    /// The required type for signing requests to the Enterprise Program API
     let tokenType: String = "JWT"
 }
 
-/// The JWT Payload contains information specific to the App Store Connect APIs, such as issuer ID and expiration time.
+/// The JWT Payload contains information specific to the Enterprise Program APIs, such as issuer ID and expiration time.
 private struct TeamPayload: Codable {
 
     enum CodingKeys: String, CodingKey {
@@ -36,14 +36,14 @@ private struct TeamPayload: Codable {
         case audience = "aud"
     }
 
-    /// Your issuer identifier from the API Keys page in App Store Connect (Ex: 57246542-96fe-1a63-e053-0824d011072a)
+    /// Your issuer identifier from the API Keys page in Enterprise Program (Ex: 57246542-96fe-1a63-e053-0824d011072a)
     let issuerIdentifier: String
 
     /// The token's expiration time, in Unix epoch time; tokens that expire more than 20 minutes in the future are not valid (Ex: 1528408800)
     let expirationTime: TimeInterval
 
-    /// The required audience which is set to the App Store Connect version.
-    let audience: String = "appstoreconnect-v1"
+    /// The required audience which is set to the Enterprise Program version.
+    let audience: String = "apple-developer-enterprise-v1"
 }
 
 private struct IndividualPayload: Codable {
@@ -60,8 +60,8 @@ private struct IndividualPayload: Codable {
     /// The token's expiration time, in Unix epoch time; tokens that expire more than 20 minutes in the future are not valid (Ex: 1528408800)
     let expirationTime: TimeInterval
 
-    /// The required audience which is set to the App Store Connect version.
-    let audience: String = "appstoreconnect-v1"
+    /// The required audience which is set to the Enterprise Program version.
+    let audience: String = "apple-developer-enterprise-v1"
 }
 
 protocol JWTCreatable {
@@ -99,20 +99,20 @@ public struct JWT: Codable, JWTCreatable {
         Date()
     }
 
-    /// The JWT Header contains information specific to the App Store Connect API Keys, such as algorithm and keys.
+    /// The JWT Header contains information specific to the Enterprise Program API Keys, such as algorithm and keys.
     private let header: Header
 
-    /// Your issuer identifier from the API Keys page in App Store Connect (Ex: 57246542-96fe-1a63-e053-0824d011072a)
+    /// Your issuer identifier from the API Keys page in Enterprise Program (Ex: 57246542-96fe-1a63-e053-0824d011072a)
     private let issuerIdentifier: String?
 
     /// The token's expiration duration in seconds. Tokens that expire more than 20 minutes in the future are not valid, so set it to a max of 20 minutes.
     private let expireDuration: TimeInterval
 
-    /// Creates a new JWT Factory to create signed requests for the App Store Connect API.
+    /// Creates a new JWT Factory to create signed requests for the Enterprise Program API.
     ///
     /// - Parameters:
-    ///   - keyIdentifier: Your private key ID from App Store Connect (Ex: 2X9R4HXF34)
-    ///   - issuerIdentifier: Your issuer identifier from the API Keys page in App Store Connect (Ex: 57246542-96fe-1a63-e053-0824d011072a)
+    ///   - keyIdentifier: Your private key ID from Enterprise Program (Ex: 2X9R4HXF34)
+    ///   - issuerIdentifier: Your issuer identifier from the API Keys page in Enterprise Program (Ex: 57246542-96fe-1a63-e053-0824d011072a)
     ///   - expireDuration: The token's expiration duration in seconds. Tokens that expire more than 20 minutes in the future are not valid, so set it to a max of 20 minutes.
     public init(keyIdentifier: String, issuerIdentifier: String?, expireDuration: TimeInterval) {
         header = Header(keyIdentifier: keyIdentifier)
@@ -135,7 +135,7 @@ public struct JWT: Codable, JWTCreatable {
         return "\(headerString).\(payloadString)"
     }
 
-    /// Creates a signed JWT Token which can be used as a Bearer Authentication header value for signing App Store Connect API Requests.
+    /// Creates a signed JWT Token which can be used as a Bearer Authentication header value for signing Enterprise Program API Requests.
     ///
     /// - Parameter privateKey: The .p8 private key to use for signing. You can get this value from the downloaded .p8 file.
     /// - Returns: A signed JWT.Token value which can be used as a value for the Bearer Authentication header.

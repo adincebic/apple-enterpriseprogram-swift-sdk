@@ -4,7 +4,7 @@
 import Foundation
 import URLQueryEncoder
 
-extension APIEndpoint.V1.BundleIDs.WithID {
+extension APIEndpoint.BundleIDs.WithID {
 	public var profiles: Profiles {
 		Profiles(path: path + "/profiles")
 	}
@@ -13,8 +13,9 @@ extension APIEndpoint.V1.BundleIDs.WithID {
 		/// Path: `/v1/bundleIds/{id}/profiles`
 		public let path: String
 
-		public func get(fieldsProfiles: [FieldsProfiles]? = nil, limit: Int? = nil) -> Request<AppStoreConnect_Swift_SDK.ProfilesWithoutIncludesResponse> {
-			Request(path: path, method: "GET", query: makeGetQuery(fieldsProfiles, limit), id: "bundleIds_profiles_getToManyRelated")
+		/// List All Profiles for a BundleId
+		public func get(fieldsProfiles: [FieldsProfiles]? = nil, limit: Int? = nil) -> Request<EnterpriseProgram_Swift_SDK.ProfilesWithoutIncludesResponse> {
+			Request(path: path, method: "GET", query: makeGetQuery(fieldsProfiles, limit), id: "bundleIds-profiles-get_to_many_related")
 		}
 
 		private func makeGetQuery(_ fieldsProfiles: [FieldsProfiles]?, _ limit: Int?) -> [(String, String?)] {
@@ -25,17 +26,17 @@ extension APIEndpoint.V1.BundleIDs.WithID {
 		}
 
 		public enum FieldsProfiles: String, Codable, CaseIterable {
+			case bundleID = "bundleId"
+			case certificates
+			case createdDate
+			case devices
+			case expirationDate
 			case name
 			case platform
-			case profileType
-			case profileState
 			case profileContent
+			case profileState
+			case profileType
 			case uuid
-			case createdDate
-			case expirationDate
-			case bundleID = "bundleId"
-			case devices
-			case certificates
 		}
 	}
 }

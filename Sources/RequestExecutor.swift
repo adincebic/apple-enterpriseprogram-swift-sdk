@@ -1,6 +1,6 @@
 //
 //  APIProviderProtocol.swift
-//  AppStoreConnect-Swift-SDK
+//  EnterpriseProgram-Swift-SDK
 //
 //  Created by Michael Schwarz on 23.01.19.
 //

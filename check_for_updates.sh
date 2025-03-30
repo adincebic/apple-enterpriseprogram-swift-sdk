@@ -2,11 +2,11 @@
 
 echo "Checking for updates..."
 
-CURRENT_VERSION=$(cat Sources/OpenAPI/app_store_connect_api.json | jq -r '.info.version')
+CURRENT_VERSION=$(cat Sources/OpenAPI/enterprise_program_api.json | jq -r '.info.version')
 
 make download
 
-NEW_VERSION=$(cat Sources/OpenAPI/app_store_connect_api.json | jq -r '.info.version')
+NEW_VERSION=$(cat Sources/OpenAPI/enterprise_program_api.json | jq -r '.info.version')
 REMOTE_BRANCH=$(git ls-remote origin refs/heads/spec-update-$NEW_VERSION)
 
 echo "Current version: $CURRENT_VERSION"
@@ -19,7 +19,7 @@ fi
 
 make generate
 
-git config --local user.name "App Store Connect Swift SDK CI"
+git config --local user.name "Enterprise Program Swift SDK CI"
 git switch --create spec-update-$NEW_VERSION
 git add --all
 git commit -m "[ci skip] Update spec to $NEW_VERSION"

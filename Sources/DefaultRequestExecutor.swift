@@ -1,6 +1,6 @@
 //
 //  URLSessionRequestExecutor.swift
-//  AppStoreConnect-Swift-SDK
+//  EnterpriseProgram-Swift-SDK
 //
 //  Created by Michael Schwarz on 04.02.19.
 //

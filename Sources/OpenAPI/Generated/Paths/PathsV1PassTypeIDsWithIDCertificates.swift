@@ -4,18 +4,18 @@
 import Foundation
 import URLQueryEncoder
 
-extension APIEndpoint {
-	public static var certificates: Certificates {
-		Certificates(path: "/v1/certificates")
+extension APIEndpoint.PassTypeIDs.WithID {
+	public var certificates: Certificates {
+		Certificates(path: path + "/certificates")
 	}
 
 	public struct Certificates {
-		/// Path: `/v1/certificates`
+		/// Path: `/v1/passTypeIds/{id}/certificates`
 		public let path: String
 
-		/// List and Download Certificates
+		/// List All Certificates for a PassTypeId
 		public func get(parameters: GetParameters? = nil) -> Request<EnterpriseProgram_Swift_SDK.CertificatesResponse> {
-			Request(path: path, method: "GET", query: parameters?.asQuery, id: "certificates-get_collection")
+			Request(path: path, method: "GET", query: parameters?.asQuery, id: "passTypeIds-certificates-get_to_many_related")
 		}
 
 		public struct GetParameters {
@@ -25,9 +25,9 @@ extension APIEndpoint {
 			public var filterID: [String]?
 			public var sort: [Sort]?
 			public var fieldsCertificates: [FieldsCertificates]?
+			public var fieldsPassTypeIDs: [FieldsPassTypeIDs]?
 			public var limit: Int?
 			public var include: [Include]?
-			public var fieldsPassTypeIDs: [FieldsPassTypeIDs]?
 
 			public enum FilterCertificateType: String, Codable, CaseIterable {
 				case iosDevelopment = "IOS_DEVELOPMENT"
@@ -66,26 +66,26 @@ extension APIEndpoint {
 				case serialNumber
 			}
 
-			public enum Include: String, Codable, CaseIterable {
-				case passTypeID = "passTypeId"
-			}
-
 			public enum FieldsPassTypeIDs: String, Codable, CaseIterable {
 				case certificates
 				case identifier
 				case name
 			}
 
-			public init(filterCertificateType: [FilterCertificateType]? = nil, filterDisplayName: [String]? = nil, filterSerialNumber: [String]? = nil, filterID: [String]? = nil, sort: [Sort]? = nil, fieldsCertificates: [FieldsCertificates]? = nil, limit: Int? = nil, include: [Include]? = nil, fieldsPassTypeIDs: [FieldsPassTypeIDs]? = nil) {
+			public enum Include: String, Codable, CaseIterable {
+				case passTypeID = "passTypeId"
+			}
+
+			public init(filterCertificateType: [FilterCertificateType]? = nil, filterDisplayName: [String]? = nil, filterSerialNumber: [String]? = nil, filterID: [String]? = nil, sort: [Sort]? = nil, fieldsCertificates: [FieldsCertificates]? = nil, fieldsPassTypeIDs: [FieldsPassTypeIDs]? = nil, limit: Int? = nil, include: [Include]? = nil) {
 				self.filterCertificateType = filterCertificateType
 				self.filterDisplayName = filterDisplayName
 				self.filterSerialNumber = filterSerialNumber
 				self.filterID = filterID
 				self.sort = sort
 				self.fieldsCertificates = fieldsCertificates
+				self.fieldsPassTypeIDs = fieldsPassTypeIDs
 				self.limit = limit
 				self.include = include
-				self.fieldsPassTypeIDs = fieldsPassTypeIDs
 			}
 
 			public var asQuery: [(String, String?)] {
@@ -96,16 +96,11 @@ extension APIEndpoint {
 				encoder.encode(filterID, forKey: "filter[id]")
 				encoder.encode(sort, forKey: "sort")
 				encoder.encode(fieldsCertificates, forKey: "fields[certificates]")
+				encoder.encode(fieldsPassTypeIDs, forKey: "fields[passTypeIds]")
 				encoder.encode(limit, forKey: "limit")
 				encoder.encode(include, forKey: "include")
-				encoder.encode(fieldsPassTypeIDs, forKey: "fields[passTypeIds]")
 				return encoder.items
 			}
-		}
-
-		/// Create a Certificate
-		public func post(_ body: EnterpriseProgram_Swift_SDK.CertificateCreateRequest) -> Request<EnterpriseProgram_Swift_SDK.CertificateResponse> {
-			Request(path: path, method: "POST", body: body, id: "certificates-create_instance")
 		}
 	}
 }

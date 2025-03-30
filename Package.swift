@@ -17,23 +17,23 @@ targetDependencies.append(.product(name: "OpenCombine", package: "OpenCombine"))
 #endif
 
 let package = Package(
-    name: "AppStoreConnect-Swift-SDK",
+    name: "EnterpriseProgram-Swift-SDK",
     platforms: [
         .iOS(.v14),
         .macOS(.v11),
         .tvOS(.v14)
     ],
     products: [
-        .library(name: "AppStoreConnect-Swift-SDK", targets: ["AppStoreConnect-Swift-SDK"])
+        .library(name: "EnterpriseProgram-Swift-SDK", targets: ["EnterpriseProgram-Swift-SDK"])
     ],
     dependencies: dependencies,
     targets: [
-        .testTarget(name: "AppStoreConnect-Swift-SDK-Tests", dependencies: ["AppStoreConnect-Swift-SDK"], path: "Tests"),
+        .testTarget(name: "EnterpriseProgram-Swift-SDK-Tests", dependencies: ["EnterpriseProgram-Swift-SDK"], path: "Tests"),
         .target(
-            name: "AppStoreConnect-Swift-SDK",
+            name: "EnterpriseProgram-Swift-SDK",
             dependencies: targetDependencies,
             path: "Sources",
-            exclude: ["OpenAPI/app_store_connect_api.json"]
+            exclude: ["OpenAPI/enterprise_program_api.json"]
         ),
         .binaryTarget(
             name: "create-api", // Find the URL and checksum at https://github.com/createapi/createapi/releases/latest

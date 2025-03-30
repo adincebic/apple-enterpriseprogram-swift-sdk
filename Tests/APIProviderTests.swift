@@ -1,12 +1,12 @@
 //
 //  APIProviderTests.swift
-//  AppStoreConnect-Swift-SDK
+//  EnterpriseProgram-Swift-SDK
 //
 //  Created by Michael Schwarz on 07.03.19.
 //
 
 import XCTest
-@testable import AppStoreConnect_Swift_SDK
+@testable import EnterpriseProgram_Swift_SDK
 import Foundation
 #if canImport(FoundationNetworking)
 import FoundationNetworking
@@ -59,7 +59,7 @@ final class APIProviderTests: XCTestCase {
         let mockRequestExecutor = MockRequestExecutor(expectedResponse: Result.success(response))
         let apiProvider = APIProvider(configuration: configuration, requestExecutor: mockRequestExecutor)
 
-        let sampleEndpoint = APIEndpoint.v1.betaGroups.id("mockID").delete
+        let sampleEndpoint = APIEndpoint.profiles.id("mockID").delete
         apiProvider.request(sampleEndpoint) { result in
             // using the mock request executor the block is called sync
             XCTAssertTrue(result.isSuccess)
@@ -82,7 +82,7 @@ final class APIProviderTests: XCTestCase {
         let mockRequestExecutor = MockRequestExecutor(expectedResponse: Result.success(response))
         let apiProvider = APIProvider(configuration: configuration, requestExecutor: mockRequestExecutor)
 
-        let sampleEndpoint = APIEndpoint.v1.betaGroups.id("mockID").delete
+        let sampleEndpoint = APIEndpoint.profiles.id("mockID").delete
         apiProvider.request(sampleEndpoint) { result in
             // using the mock request executor the block is called sync
             XCTAssertNotNil(result.error)
@@ -102,61 +102,6 @@ final class APIProviderTests: XCTestCase {
 
             The specified resource does not exist. There is no resource of type 'builds' with id 'app.appId').
             """)
-        }
-    }
-
-    func testDownloadRequestWithResultSuccess() {
-        let response = Response(requestURL: nil, statusCode: 200, rateLimit: nil, data: URL(fileURLWithPath: "randompath"))
-        let mockRequestExecutor = MockRequestExecutor(expectedResponse: Result.success(response))
-
-        let apiProvider = APIProvider(configuration: configuration, requestExecutor: mockRequestExecutor)
-
-        let reportEndpoint = APIEndpoint.v1.salesReports.get(parameters: .init(filterVendorNumber: [],
-                                                                               filterReportType: [],
-                                                                               filterReportSubType: [],
-                                                                               filterFrequency: []))
-        apiProvider.download(reportEndpoint) { result in
-            // using the mock request executor the block is called sync
-            XCTAssertTrue(result.isSuccess)
-            XCTAssertEqual(result.value!, URL(fileURLWithPath: "randompath"))
-        }
-    }
-
-    func testDownloadRequestWithProblemOnFileCreation() {
-        let response = Response<URL>(requestURL: nil, statusCode: 200, rateLimit: nil, data: nil)
-        let mockRequestExecutor = MockRequestExecutor(expectedResponse: Result.success(response))
-
-        let apiProvider = APIProvider(configuration: configuration, requestExecutor: mockRequestExecutor)
-        let reportEndpoint = APIEndpoint.v1.salesReports.get(parameters: .init(filterVendorNumber: [],
-                                                                               filterReportType: [],
-                                                                               filterReportSubType: [],
-                                                                               filterFrequency: []))
-        apiProvider.download(reportEndpoint) { result in
-            // using the mock request executor the block is called sync
-            XCTAssertTrue(result.isFailure)
-            guard
-                let error = result.error as? APIProvider.Error else {
-                    XCTFail("We expect a requestFailure error")
-                    return
-            }
-            XCTAssert(error.debugDescription == APIProvider.Error.downloadError.debugDescription)
-
-        }
-    }
-
-    func testDownloadRequestWithFailure() {
-        let response = Response<URL>(requestURL: nil, statusCode: 500, rateLimit: nil, data: nil)
-        let mockRequestExecutor = MockRequestExecutor(expectedResponse: Result.success(response))
-
-        let apiProvider = APIProvider(configuration: configuration, requestExecutor: mockRequestExecutor)
-        let reportEndpoint = APIEndpoint.v1.salesReports.get(parameters: .init(filterVendorNumber: [],
-                                                                               filterReportType: [],
-                                                                               filterReportSubType: [],
-                                                                               filterFrequency: []))
-        apiProvider.download(reportEndpoint) { result in
-            // using the mock request executor the block is called sync
-            XCTAssertTrue(result.isFailure)
-
         }
     }
 }

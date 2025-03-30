@@ -4,24 +4,25 @@
 import Foundation
 import URLQueryEncoder
 
-extension APIEndpoint.Certificates {
-	public func id(_ id: String) -> WithID {
-		WithID(path: "\(path)/\(id)")
+extension APIEndpoint.Certificates.WithID {
+	public var passTypeID: PassTypeID {
+		PassTypeID(path: path + "/passTypeId")
 	}
 
-	public struct WithID {
-		/// Path: `/v1/certificates/{id}`
+	public struct PassTypeID {
+		/// Path: `/v1/certificates/{id}/passTypeId`
 		public let path: String
 
-		/// Read and Download Certificate Information
-		public func get(parameters: GetParameters? = nil) -> Request<EnterpriseProgram_Swift_SDK.CertificateResponse> {
-			Request(path: path, method: "GET", query: parameters?.asQuery, id: "certificates-get_instance")
+		/// Read the Pass Type Id Information of a Certificate
+		public func get(parameters: GetParameters? = nil) -> Request<EnterpriseProgram_Swift_SDK.PassTypeIDResponse> {
+			Request(path: path, method: "GET", query: parameters?.asQuery, id: "certificates-passTypeId-get_to_one_related")
 		}
 
 		public struct GetParameters {
 			public var fieldsCertificates: [FieldsCertificates]?
-			public var include: [Include]?
 			public var fieldsPassTypeIDs: [FieldsPassTypeIDs]?
+			public var limitCertificates: Int?
+			public var include: [Include]?
 
 			public enum FieldsCertificates: String, Codable, CaseIterable {
 				case certificateContent
@@ -35,34 +36,31 @@ extension APIEndpoint.Certificates {
 				case serialNumber
 			}
 
-			public enum Include: String, Codable, CaseIterable {
-				case passTypeID = "passTypeId"
-			}
-
 			public enum FieldsPassTypeIDs: String, Codable, CaseIterable {
 				case certificates
 				case identifier
 				case name
 			}
 
-			public init(fieldsCertificates: [FieldsCertificates]? = nil, include: [Include]? = nil, fieldsPassTypeIDs: [FieldsPassTypeIDs]? = nil) {
+			public enum Include: String, Codable, CaseIterable {
+				case certificates
+			}
+
+			public init(fieldsCertificates: [FieldsCertificates]? = nil, fieldsPassTypeIDs: [FieldsPassTypeIDs]? = nil, limitCertificates: Int? = nil, include: [Include]? = nil) {
 				self.fieldsCertificates = fieldsCertificates
-				self.include = include
 				self.fieldsPassTypeIDs = fieldsPassTypeIDs
+				self.limitCertificates = limitCertificates
+				self.include = include
 			}
 
 			public var asQuery: [(String, String?)] {
 				let encoder = URLQueryEncoder(explode: false)
 				encoder.encode(fieldsCertificates, forKey: "fields[certificates]")
-				encoder.encode(include, forKey: "include")
 				encoder.encode(fieldsPassTypeIDs, forKey: "fields[passTypeIds]")
+				encoder.encode(limitCertificates, forKey: "limit[certificates]")
+				encoder.encode(include, forKey: "include")
 				return encoder.items
 			}
-		}
-
-		/// Revoke a Certificate
-		public var delete: Request<Void> {
-			Request(path: path, method: "DELETE", id: "certificates-delete_instance")
 		}
 	}
 }
