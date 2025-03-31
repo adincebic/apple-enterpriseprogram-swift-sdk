@@ -56,7 +56,7 @@ extension Request {
 
     internal var baseURL: URL {
         // swiftlint:disable:next force_unwrapping
-        return URL(string: "api.enterprise.developer.apple.com")!
+        return URL(string: "https://api.enterprise.developer.apple.com")!
     }
 
     private func makeURL(path: String, query: [(String, String?)]?) throws -> URL {

@@ -4,7 +4,7 @@
     "title": "Enterprise Program API",
     "version": "1.0",
     "x-platforms": {
-      "app_store_connect_api": "Enterprise Program"
+      "app_store_connect_api": "App Store Connect"
     }
   },
   "servers": [
